@@ -4,24 +4,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyAutoService.Data;
+using MyAutoService.Models;
 
 namespace MyAutoService.Pages.ServiceTypes
 {
     public class IndexModel : PageModel
     {
-  //      ApplicationDbContext _db;
+       private ApplicationDbContext _db;
 
-  //      public IndexModel(ApplicationDbContext db)
-  //      {
-  //          _db = db;
-  //      }
+        public IndexModel(ApplicationDbContext db)
+       {
+            _db = db;
+        }
 
-		//public IList<ServiceTypes> ServiceTypes { get; set; }
+		public IList<ServiceType> ServiceTypes { get; set; }
 
-  //      public async Task<IActionResult> OnGet()
-  //      {
-  //          ServiceTypes = await _db.ServiceTypes.ToListAsync(); 
-  //          return Page();
-  //      }
+        public async Task<IActionResult> OnGet()
+        {
+            ServiceTypes = await _db.ServiceTypes.ToListAsync(); 
+            return Page();
+        }
     }
 }

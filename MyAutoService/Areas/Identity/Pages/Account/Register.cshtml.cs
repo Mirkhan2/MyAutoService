@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using MyAutoService.Models;
 
 namespace MyAutoService.Areas.Identity.Pages.Account
 {
@@ -60,7 +61,20 @@ namespace MyAutoService.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        }
+
+			[Required(ErrorMessage ="Please Fill in")]
+			[EmailAddress]
+			[MaxLength(200)]
+			public string Name { get; set; }
+
+			public string Address { get; set; }
+			[Required(ErrorMessage = "Please Fill in")]
+			[MaxLength(200)]
+			public string City { get; set; }
+			[MaxLength(200)]
+			public string PostalCode { get; set; }
+
+		}
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -74,7 +88,13 @@ namespace MyAutoService.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email,
+                    Email = Input.Email ,
+                    Name = Input.Name,
+                    Address = Input.Address,
+                    City = Input.City,
+                    PostalCode = Input.PostalCode,
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

@@ -16,7 +16,59 @@
 		<div class="col-6 text-left ">
 			<a asp-page="Create" class="btn btn-info">
 				Add Our service
+				<i class="fas fa-plus fa-xs"></i>
 			</a>
 		</div>
 		></div>
+</div>
+<br/>
+<div>
+	@if(Model.ServiceTypes.Count==0)
+	{
+		<div class="alert alert-warning">service is not able .you can make service here
+			<a asp-page="Create" class="btn btn-link">
+				Add New Service
+			</a>
+			Add it
+		</div>
+	}
+	else
+	{
+		<table class="table table-striped border">
+
+			<tr class="table-secondary">
+				<th> Type service</th>
+				<th>Price service</th>
+				<th></th>
+
+
+			</tr>
+			@foreach (var item in Model.ServiceTypes)
+			{
+				<tr>
+					<td>
+						@item.Name
+					</td>
+					<td>
+						@item.Price
+					</td>
+					<td>
+					<td style="width : 150px"></td>
+					<div class="btn btn-group" role="group">
+						<a class=" btn btn-outline-primary " asp-page="Edit" asp-route-Id ="@item.Id">
+						<i class="fas fa-edit fa-sm"></i>
+						</a>
+						<a class=" btn btn-outline-success" asp-page="Details" asp-route-Id="@item.Id">
+							<i class="fas fa-list-alt fa-sm"></i>
+						</a>
+						<a class=" btn btn-outline-danger " asp-page="Delete" asp-route-Id="@item.Id">
+							<i class="fas fa-edit fa-sm"></i>
+						</a>
+					</div>
+					</td>
+				</tr>
+			}
+
+		</table>
+	}
 </div>

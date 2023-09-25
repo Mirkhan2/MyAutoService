@@ -6,11 +6,14 @@ namespace MyAutoService.Models
 	{
         public int Id { get; set; }
 
-		[Required]
+
+		[Display(Name= " Name :")]
+		[Required(ErrorMessage ="Please Add Your Name")]
 		[MaxLength(555)]
 		public string Name { get; set; }
 
-        [Required]
+		[Display(Name = "Price : ")]
+		[Required(ErrorMessage = "Please Add Your Price")]
         public double Price { get; set; }
     }
 }
