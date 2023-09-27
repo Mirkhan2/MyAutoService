@@ -2,9 +2,9 @@
 
 namespace MyAutoService.Models.ViewModels
 {
-	public class UersListViewModel
+	public class UsersListViewModel
 	{
-		public List<ApplicationUser> applicationUsersList { get; set; }
+		public List<ApplicationUser> ApplicationUsersList { get; set; }
 		public Paginginfo paginginfo { get; set; }
 	}
 }
