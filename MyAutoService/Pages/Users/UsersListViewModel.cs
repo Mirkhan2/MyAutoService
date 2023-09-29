@@ -5,7 +5,8 @@ namespace MyAutoService.Pages.Users
 {
 	public class UsersListViewModel
 	{
-		internal List<ApplicationUser> ApplicationUsersList;
-		internal Paginginfo PagingInfo;
+		public List<ApplicationUser> ApplicationUserList { get; set; }
+		public PagingInfo PagingInfo { get; set; }
+
 	}
 }

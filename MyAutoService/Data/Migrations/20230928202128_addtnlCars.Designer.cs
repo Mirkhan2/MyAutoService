@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyAutoService.Data;
 
 namespace MyAutoService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230928202128_addtnlCars")]
+    partial class addtnlCars
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,66 +257,6 @@ namespace MyAutoService.Data.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("MyAutoService.Models.ServiceDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ServiceHeader")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServiceHeaderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ServiceName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("ServicePrice")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ServiceTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceHeader");
-
-                    b.HasIndex("ServiceTypeId");
-
-                    b.ToTable("ServiceDetails");
-                });
-
-            modelBuilder.Entity("MyAutoService.Models.ServiceHeader", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Dateadded")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Miles")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.ToTable("ServiceHeaders");
-                });
-
             modelBuilder.Entity("MyAutoService.Models.ServiceType", b =>
                 {
                     b.Property<int>("Id")
@@ -333,26 +275,6 @@ namespace MyAutoService.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ServiceTypes");
-                });
-
-            modelBuilder.Entity("MyAutoService.Models.ServicesShoppingCart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServiceTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.ToTable("ServicesShoppingCarts");
                 });
 
             modelBuilder.Entity("MyAutoService.Models.ApplicationUser", b =>
@@ -435,53 +357,6 @@ namespace MyAutoService.Data.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("MyAutoService.Models.ServiceDetails", b =>
-                {
-                    b.HasOne("MyAutoService.Models.ServiceHeader", "Header")
-                        .WithMany()
-                        .HasForeignKey("ServiceHeader");
-
-                    b.HasOne("MyAutoService.Models.ServiceType", "ServiceType")
-                        .WithMany()
-                        .HasForeignKey("ServiceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Header");
-
-                    b.Navigation("ServiceType");
-                });
-
-            modelBuilder.Entity("MyAutoService.Models.ServiceHeader", b =>
-                {
-                    b.HasOne("MyAutoService.Models.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-                });
-
-            modelBuilder.Entity("MyAutoService.Models.ServicesShoppingCart", b =>
-                {
-                    b.HasOne("MyAutoService.Models.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyAutoService.Models.ServiceType", "MyProperty")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-
-                    b.Navigation("MyProperty");
                 });
 
             modelBuilder.Entity("MyAutoService.Models.ApplicationUser", b =>

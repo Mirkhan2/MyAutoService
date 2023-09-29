@@ -11,7 +11,7 @@ namespace MyAutoService.Utilities
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress("testtitoplearn@gmail.com");
+            mail.From = new MailAddress("mirkhan.shams4@gmail.com");
             mail.To.Add(email);
             mail.Subject = subject;
             mail.Body = htmlMessage;

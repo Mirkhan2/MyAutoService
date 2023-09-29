@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyAutoService.Data;
 using MyAutoService.Models;
+using MyAutoService.Utilities;
 
 namespace MyAutoService.Pages.ServiceTypes
 {
-    public class EditModel : PageModel
+	[Authorize(Roles = SD.AdminEndUser)]
+	public class EditModel : PageModel
     {
         private readonly MyAutoService.Data.ApplicationDbContext _context;
 

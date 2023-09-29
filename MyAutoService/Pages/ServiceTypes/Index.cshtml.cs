@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyAutoService.Data;
 using MyAutoService.Models;
+using MyAutoService.Utilities;
 
 namespace MyAutoService.Pages.ServiceTypes
 {
+    [Authorize(Roles =SD.AdminEndUser)]
     public class IndexModel : PageModel
     {
        private ApplicationDbContext _db;

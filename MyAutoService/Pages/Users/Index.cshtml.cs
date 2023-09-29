@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +12,10 @@ using MyAutoService.Utilities;
 
 namespace MyAutoService.Pages.Users
 {
+	[Authorize(Roles = SD.AdminEndUser)]
 	public class IndexModel : PageModel
 	{
+		
 		private readonly ApplicationDbContext _db;
 
 		//private UsersListViewModel usersListViewModel;
@@ -28,12 +31,11 @@ namespace MyAutoService.Pages.Users
 		{
 			UsersListViewModel = new UsersListViewModel()
 			{
-
-
-				ApplicationUsersList = await _db.ApplicationUser.ToListAsync(),
+				ApplicationUserList = await _db.ApplicationUser.ToListAsync(),
 			};
 			StringBuilder param = new StringBuilder();
 			param.Append("/Users?pageId= :");
+
 			param.Append("&searchName =");
 			if (searchName != null)
 				param.Append(searchName);
@@ -48,22 +50,24 @@ namespace MyAutoService.Pages.Users
 			
 			if (searchName != null || searchEmail!=null || searchPhone != null)
 			{
-				UsersListViewModel.ApplicationUsersList = _db.ApplicationUser.Where(u => u.Name.Contains(searchName)||u.Email.Contains(searchEmail)||u.PhoneNumber.Contains(searchPhone)).ToList();
+				UsersListViewModel.ApplicationUserList = _db.ApplicationUser
+					.Where(u => u.Name.Contains(searchName) || u.Email.Contains(searchEmail)||u.PhoneNumber.Contains(searchPhone)).ToList();
 			}
 
-			var count = UsersListViewModel.ApplicationUsersList.Count;
+			var count = UsersListViewModel.ApplicationUserList.Count;
 			
-			UsersListViewModel.PagingInfo = new Paginginfo()
+			UsersListViewModel.PagingInfo = new PagingInfo()
 			{
 				CurrentPage = pageId,
 				ItemPerPage = 2,
 				TotalItems = count,
-				urlParam = param.ToString()
+				UrlParam = param.ToString()
 			};
-			UsersListViewModel.ApplicationUsersList = UsersListViewModel.ApplicationUsersList.OrderBy(u => u.Name).ToList();
-			//UsersListViewModel.ApplicationUsersList = UsersListViewModel.ApplicationUsersList.OrderBy(u =>u.Name).
-			//	Skip(pageId -1) * 2) * SD.PagingUserCount).Take(SD.PagingUserCount).ToList();
-	
+
+			UsersListViewModel.ApplicationUserList = UsersListViewModel.ApplicationUserList.OrderBy(u => u.Name)
+			.Skip((pageId - 1) * SD.PagingUserCount)
+			.Take(SD.PagingUserCount).ToList();
+
 			return Page();
 		}
 	}

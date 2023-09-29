@@ -40,10 +40,25 @@ namespace MyAutoService
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
+
+				#region Add Identity
+
+
 			services.AddIdentity<IdentityUser ,IdentityRole>()
 				.AddDefaultTokenProviders()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
+			services.ConfigureApplicationCookie(option =>
+			{
+				option.AccessDeniedPath = "/Identity/Account/AccessDenied";
+				option.LoginPath = "/Identity/Account/Login";
+				option.LogoutPath = "/Identity/Account/LogoutModel";
+			});
+			#endregion
+
+
+
 			services.AddRazorPages();
+
 			services.AddControllersWithViews();
 			services.AddRazorPages().AddRazorRuntimeCompilation();
 

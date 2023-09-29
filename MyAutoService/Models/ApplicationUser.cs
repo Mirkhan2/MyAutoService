@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
 namespace MyAutoService.Models
@@ -9,33 +10,30 @@ namespace MyAutoService.Models
 		[MaxLength(200)]
 		public string Name { get; set; }
 		public string Address { get; set; }
+
 		[MaxLength(200)]
 		[Display(Name = "CiTy ")]
 		public string City { get; set; }
+
 
 		[Display(Name = " PoStalCode")]
 		[MaxLength(200)]
 		public string PostalCode { get; set; }
 
+
 		[Display(Name = "Email ")]
 		public override string Email
 		{
-			get => base.Email
-				; set => base.Email = value;
+			get => base.Email;
+			set => base.Email = value;
 		}
 
 		[Display(Name = " PhoneNumber")]
 		public override string PhoneNumber
 		{
-			get
-			{
-				return base.PhoneNumber	;
-			}
-			set
-			{
-				base.PhoneNumber = value;
-				
-			}
+			get{ return base.PhoneNumber	; }
+			set{ base.PhoneNumber = value; }
 		}
-	}
+        public virtual List<Car> Cars { get; set; }
+    }
 }

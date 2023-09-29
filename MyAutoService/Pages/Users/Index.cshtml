@@ -28,7 +28,7 @@
 						<div class="col-11">
 							<div class="row " style="padding-top : 10px">
 								<div class="col-4">
-									<input type="email" name="searchName" placeholder="Name" class="from-control" />
+									<input type="text" name="searchName" placeholder="Name" class="from-control" />
 								</div>
 								<div class="col-4">
 									<input type="email" name="searchEmail" placeholder="Email" class="from-control" />
@@ -38,30 +38,34 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-1"></div>
-						<div class="row " style="padding-top : 10px;padding-left : 15px"></div>
-						<button type="submit" name="submit " value="submit" class="btn btn-info form-control "></button>
-
+						<div class="col-1">
+							<div class="row " style="padding-top : 10px; padding-left : 15px">
+								<button type="submit" name="submit " value="submit" class="btn btn-info form-control ">
+									Find
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 			<br />
-			@if (Model.UsersListViewModel.ApplicationUsersList.Count > 0)
+			@if (Model.UsersListViewModel.ApplicationUserList.Count > 0)
 			{
 				<table class=" table table-striped boarder">
 					<tr class="table-secondary">
 						<th>
-							@Html.DisplayNameFor(m => m.UsersListViewModel.ApplicationUsersList[0].Name)
+							@Html.DisplayNameFor(m => m.UsersListViewModel.ApplicationUserList[0].Name)
 						</th>
 						<th>
-							@Html.DisplayNameFor(m => m.UsersListViewModel.ApplicationUsersList[0].PhoneNumber)
+							@Html.DisplayNameFor(m => m.UsersListViewModel.ApplicationUserList[0].PhoneNumber)
 						</th>
 						<th>
-							@Html.DisplayNameFor(m => m.UsersListViewModel.ApplicationUsersList[0].Email)
+							@Html.DisplayNameFor(m => m.UsersListViewModel.ApplicationUserList[0].Email)
 						</th>
+						<th> Cars ManangMent</th>
 						<th></th>
 					</tr>
-					@foreach (var user in Model.UsersListViewModel.ApplicationUsersList)
+					@foreach (var user in @Model.UsersListViewModel.ApplicationUserList)
 					{
 						<tr>
 							<td>
@@ -72,6 +76,11 @@
 							</td>
 							<td>
 								@user.Email
+							</td>
+							<td>
+								<a asp-page="/Cars/Index" asp-route-userId="@user.Id">
+									Car MAnangments
+								</a>
 							</td>
 							<td style="width : 150px">
 
@@ -94,7 +103,7 @@
 			}
 			else
 			{
-
+				<div> USer NoTFound</div>
 			}
 		</div>
 	</div>
