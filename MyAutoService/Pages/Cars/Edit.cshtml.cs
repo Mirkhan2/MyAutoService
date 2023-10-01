@@ -24,6 +24,7 @@ namespace MyAutoService.Pages.Cars
 
         [BindProperty]
         public Car Car { get; set; }
+
 		[BindProperty]
 		public IFormFile ImgUp { get; set; }
 
@@ -53,21 +54,29 @@ namespace MyAutoService.Pages.Cars
             {
                 return Page();
             }
-		
+
             if (ImgUp != null)
             {
-                if (ImgUp != null)
+                Car.ImageName = Guid.NewGuid().ToString() + Path.GetExtension(ImgUp.FileName);
+                string savePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/CarImages", Car.ImageName);
+                using (var fileStream = new FileStream(savePath, FileMode.Create))
                 {
-					string deletePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/CarImages", Car.ImageName);
-                    if (System.IO.File.Exists(deletePath))
-                    {
-                        System.IO.File.Delete(deletePath);
-                    }
-				}
+                    ImgUp.CopyTo(fileStream);
+                }
+            }
 
-				Car.ImageName = Guid.NewGuid().ToString() + Path.GetExtension(ImgUp.FileName);
-                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/CarImages", Car.ImageName);
-                using (var fileStream = new FileStream(SavePath, FileMode.Create))
+            if (ImgUp != null)
+            {
+                string deletePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/CarImages", Car.ImageName);
+                if (System.IO.File.Exists(deletePath))
+                {
+                    System.IO.File.Delete(deletePath);
+                }
+
+
+                Car.ImageName = Guid.NewGuid().ToString() + Path.GetExtension(ImgUp.FileName);
+                string savePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/CarImages", Car.ImageName);
+                using (var fileStream = new FileStream(savePath, FileMode.Create))
                 {
                     ImgUp.CopyTo(fileStream);
                 }

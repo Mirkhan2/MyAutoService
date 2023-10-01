@@ -62,8 +62,9 @@ namespace MyAutoService
 			services.AddControllersWithViews();
 			services.AddRazorPages().AddRazorRuntimeCompilation();
 
-			services.AddTransient<IEmailSender, EmailSender>();
-		}
+			services.AddScoped<IEmailSender, EmailSender>();
+
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

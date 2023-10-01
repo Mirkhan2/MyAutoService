@@ -9,6 +9,7 @@ namespace MyAutoService.Models
 		[Display(Name = " CustomerName")]
 		[MaxLength(200)]
 		public string Name { get; set; }
+
 		public string Address { get; set; }
 
 		[MaxLength(200)]
@@ -34,6 +35,7 @@ namespace MyAutoService.Models
 			get{ return base.PhoneNumber	; }
 			set{ base.PhoneNumber = value; }
 		}
+
         public virtual List<Car> Cars { get; set; }
     }
 }

@@ -24,20 +24,25 @@ namespace MyAutoService.Pages.Cars
 
 		[BindProperty]
 		public Car Car { get; set; }
-		public IActionResult OnGet(string userId=null)
+
+		public IActionResult OnGet(string userId = null)
         {
-            Car car = new Car();
-			if (userId == null)
-			{
-				var claimsIdentity = (ClaimsIdentity)User.Identity;
-				var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-				userId = claim.Value;
-			}
-         Car.UserId = userId;
-			return Page();
+            Car = new Car();
+            if (userId == null)
+            {
+                var ClaimIdentity = (ClaimsIdentity)User.Identity;
+                var Claim = ClaimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                userId = Claim.Value;
+            }
+
+            Car.UserId = userId;
+
+            return Page();
         }
+
         [BindProperty]
         public IFormFile ImgUp { get; set; }
+
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
@@ -45,16 +50,16 @@ namespace MyAutoService.Pages.Cars
             {
                 return Page();
             }
-            if (ImgUp != null)
-            {
-                Car.ImageName = Guid.NewGuid().ToString() + Path.GetExtension(ImgUp.FileName);
-                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/CarImages", Car.ImageName);
-                using (var fileStream = new FileStream(SavePath, FileMode.Create))
-                {
-                    ImgUp.CopyTo(fileStream);
-                }
-            }
-            _context.Cars.Add(Car);
+			if (ImgUp != null)
+			{
+				Car.ImageName = Guid.NewGuid().ToString() + Path.GetExtension(ImgUp.FileName);
+				string savePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/CarImages", Car.ImageName);
+				using (var fileStream = new FileStream(savePath, FileMode.Create))
+				{
+					ImgUp.CopyTo(fileStream);
+				}
+			}
+			_context.Cars.Add(Car);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

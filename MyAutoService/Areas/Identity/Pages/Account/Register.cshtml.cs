@@ -71,14 +71,15 @@ namespace MyAutoService.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
 			[Required(ErrorMessage ="Please Fill in")]
-			[EmailAddress]
 			[MaxLength(200)]
 			public string Name { get; set; }
 
 			public string Address { get; set; }
+
 			[Required(ErrorMessage = "Please Fill in")]
 			[MaxLength(200)]
 			public string City { get; set; }
+
 			[MaxLength(200)]
 			public string PostalCode { get; set; }
 

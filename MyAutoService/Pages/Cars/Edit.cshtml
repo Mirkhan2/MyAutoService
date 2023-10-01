@@ -16,6 +16,7 @@
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<input type="hidden" asp-for="Car.Id" />
 			<input type="hidden" asp-for="Car.ImageName" />
+			<input type="hidden" asp-for="Car.UserId" />
 			<div class="form-group">
 				<label asp-for="Car.Name" class="control-label"></label>
 				<input asp-for="Car.Name" class="form-control" />
@@ -44,9 +45,9 @@
 
 			<div class="form-group">
 				<label asp-for="Car.ImageName" class="control-label"></label>
-				<input type="file" name=" imgUp" imgUp />
+				<input type="file" name="imgUp" id="imgUp" />
 				<span asp-validation-for="Car.ImageName" class="text-danger"></span>
-				<img id="imgPreview" src="/CarImages/@Model.Car.ImageName" style="max-width : 120px" class="img-thumbnail" />
+				<img id="imgPreview" src="/CarImages/@Model.Car.ImageName" style="max-width: 120px" class="img-thumbnail" />
 			</div>
 
 
@@ -77,14 +78,14 @@
 				var reader = new FileReader();
 
 				reader.onload = function (e) {
-					$('#imgPreview').attr('src', e, target.result);
+					$('#imgPreview').attr('src', e.target.result);
 				}
-				reader.readAsDataURL(input.files[0]);
+
+				reader.readAsDataURL(input.files[0]); // convert to base64 string
 			}
 		}
 
-		$("#imgInp").change(function () {
-
+		$("#imgUp").change(function () {
 			readURL(this);
 		});
 	</script>

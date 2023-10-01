@@ -17,18 +17,20 @@ namespace MyAutoService.Pages.Services
 		{
 			_context = context;
 		}
+
         [BindProperty]
         public List<ServiceHeader> ServiceHeaders { get; set; }
 
         public string UserId { get; set; }
+
         public void OnGet(int carId)
 		{
-			ServiceHeaders = _context.ServiceHeaders
-				.Include(s => s.Car)
-				.Include(c => c.Car.ApplicationUser)
-				.Where( c => c.CarId == carId)
-				.ToList();
-			UserId = _context.Cars.Where( u => u.Id == carId ).FirstOrDefault().UserId ;
-		}
+            ServiceHeaders = _context.ServiceHeaders
+                .Include(c => c.Car)
+                .Include(c => c.Car.ApplicationUser)
+                .Where(c => c.CarId == carId).ToList();
+
+            UserId = _context.Cars.Where(c => c.Id == carId).FirstOrDefault().UserId;
+        }
 	}
 }

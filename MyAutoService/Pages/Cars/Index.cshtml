@@ -105,25 +105,28 @@
 								@car.Year
 							</td>
 							<td>
-								<a class="btn btn-outline-secondary " asp-page="/Services/History"
-								   asp-route-carUd="@car.Id">
+								<a class="btn btn-outline-secondary" asp-page="/Services/History"
+								   asp-route-carId="@car.Id">
 									Services Information
 								</a>
 							</td>
 							@if (User.IsInRole(SD.AdminEndUser))
 							{
 								<td>
-									<a class="btn btn-outline-primary" asp-action="/Edit"
-									   asp-route-carUd="@car.Id">
+									<a class="btn btn-outline-success" asp-page="/Services/Create"
+									   asp-route-carId="@car.Id">
 										New Services
 									</a>
 								</td>
 							}
 							<td>
-
-								<a class="btn btn-outline-danger" asp-action="/Delete"
-								   asp-route-carUd="@car.Id">
-									New Services
+								<a class="btn btn-outline-primary" asp-page="Edit"
+								   asp-route-carId="@car.Id">
+									<i class="fas fa-edit"></i>
+								</a>
+								<a class="btn btn-outline-danger" asp-page="Delete"
+								   asp-route-carId="@car.Id">
+									<i class="fas fa-trash"></i>
 								</a>
 							</td>
 

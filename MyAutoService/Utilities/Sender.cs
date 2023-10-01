@@ -4,14 +4,13 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace MyAutoService.Utilities
 {
-
     public class EmailSender : IEmailSender
     {
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress("mirkhan.shams4@gmail.com");
+            mail.From = new MailAddress("Mirkhan.shams4@gmail.com");
             mail.To.Add(email);
             mail.Subject = subject;
             mail.Body = htmlMessage;
@@ -20,9 +19,10 @@ namespace MyAutoService.Utilities
             //System.Net.Mail.Attachment attachment;
             // attachment = new System.Net.Mail.Attachment("c:/textfile.txt");
             // mail.Attachments.Add(attachment);
+            //Nyma@6190
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("testtitoplearn@gmail.com", "TopE34@54Im");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("Mirkhan.shams4@gmail.com", "MirkhanKolija12345");
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);
