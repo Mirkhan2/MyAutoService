@@ -30,6 +30,8 @@ namespace MyAutoService.Models
         [ForeignKey("UserId")]
         public virtual ApplicationUser  ApplicationUser{ get; set; }
 
-        
+        public List<ServicesShoppingCart> ServicesShoppingCarts { get; set; }
+
+
     }
 }

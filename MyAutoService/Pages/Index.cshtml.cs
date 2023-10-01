@@ -5,21 +5,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using MyAutoService.Data;
+using MyAutoService.Models;
 
 namespace MyAutoService.Pages
 {
 	public class IndexModel : PageModel
 	{
-		private readonly ILogger<IndexModel> _logger;
+		private ApplicationDbContext _context;
+        public IndexModel(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-		public IndexModel(ILogger<IndexModel> logger)
+        public List<ServiceType> ServiceTypes { get; set; }
+        public List<Car> Cars { get; set; }
+        public void OnGet()
 		{
-			_logger = logger;
-		}
-
-		public void OnGet()
-		{
-
-		}
+            ServiceTypes = _context.ServiceTypes.ToList();
+            Cars= _context.Cars.ToList();
+        }
 	}
 }
